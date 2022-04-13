@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#background{
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(rgba(162, 164, 165, 0.475), rgba(101, 101, 108, 0.662)),url(../images/background.webp);
+    background-size: cover;
+}
+h3{
+    position: relative;
+    left: 100px;
+    top:10px;
+    font-size: 40px;
+    display: inline;
+}
+#grid{
+    margin: auto;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left:0;
+    right:0;
+    width:800px;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+}
