@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Cards</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #background{
+            width: 100vw;
+            height: 100vh;
+            background-image: linear-gradient(rgba(162, 164, 165, 0.475), rgba(101, 101, 108, 0.662)),url(assets/images/background.webp);
+            background-size: cover;
+        }
+        h3{
+            position: relative;
+            left: 100px;
+            top:10px;
+            font-size: 40px;
+            display: inline;
+        }
+        #grid{
+            margin: auto;
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left:0;
+            right:0;
+            width:800px;
+            height: 600px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body> 
+  <div id="background">
+    <h3>Score: <span id="score"></span></h3>    
+  <div id="grid"></div> 
+  </div>
+  <script src="assets/jquery-3.6.0.min.js"></script>
+  <script>
+    const memoryCardArray=[
+        {
+            name:"bird",
+            img:"assets/images/bird.png"
+        },
+        {
+            name:"cat",
+            img:"assets/images/cat-in-black-silhouette.png"
+        },
+        {
+            name:"giraffe",
+            img:"assets/images/giraffe.png"
+        },
+        {
+            name:"penguin",
+            img:"assets/images/penguin.png"
+        },
+        {
+            name:"raccoon",
+            img:"assets/images/raccoon.png"
+        },
+        {
+            name:"puffer-fish",
+            img:"assets/images/puffer-fish.png"
+        },
+        {
+            name:"bird",
+            img:"assets/images/bird.png"
+        },
+        {
+            name:"cat",
+            img:"assets/images/cat-in-black-silhouette.png"
+        },
+        {
+            name:"giraffe",
+            img:"assets/images/giraffe.png"
+        },
+        {
+            name:"penguin",
+            img:"assets/images/penguin.png"
+        },
+        {
+            name:"raccoon",
+            img:"assets/images/raccoon.png"
+        },
+        {
+            name:"puffer-fish",
+            img:"assets/images/puffer-fish.png"
+        }
+    ];  
+
+    memoryCardArray.sort(() => 0.5 - Math.random());
+
+    const grid=document.getElementById("grid");
+    let chosenCards=[];
+    let chosenCardID=[];
+    const cardSet=[];
+    const result=document.getElementById("score");
+
+    function createGrid(){
+        for(let i=0;i<memoryCardArray.length;i++){
+            const card=document.createElement('img');
+            card.setAttribute("src","assets/images/rainbow.jpg");
+            card.setAttribute("width","200px");
+            card.setAttribute("border","1px solid black");
+            card.addEventListener("click",flipCard);
+            card.setAttribute("data-id",i);
+            grid.appendChild(card);
+        }
+    }
+    createGrid();
+
+    function flipCard(){
+        const id=this.getAttribute("data-id");
+        chosenCards.push(memoryCardArray[id].name);
+        chosenCardID.push(id);
+        this.setAttribute("src",memoryCardArray[id].img);
+        if(chosenCards.length == 2){
+            setTimeout(check,500);
+        }
+    }
+
+    function check(){
+        const cards=document.querySelectorAll("img");
+    
+        if(chosenCards[0] === chosenCards[1]){
+            cards[chosenCardID[0]].setAttribute("src","assets/images/success.webp");
+            cards[chosenCardID[1]].setAttribute("src","assets/images/success.webp");
+            cards[chosenCardID[0]].removeEventListener('click',flipCard);
+            cards[chosenCardID[1]].removeEventListener('click',flipCard);
+            cardSet.push(chosenCards);
+        }else{
+            cards[chosenCardID[0]].setAttribute("src","assets/images/rainbow.jpg");
+            cards[chosenCardID[1]].setAttribute("src","assets/images/rainbow.jpg");
+        }
+        result.innerHTML=cardSet.length;
+        chosenCards=[];
+        chosenCardID=[];
+
+        if(cardSet.length==memoryCardArray.length/2){
+            result.innerHTML="You Won"
+        }
+    }
+
+  </script>  
+</body>
+</html>
